@@ -9555,4 +9555,14 @@ label.panel-block:hover {
   margin-right: 10px;
 }
 
+.search {
+  padding: 1.2em;
+}
+
+.recipe {
+  -webkit-transition: 1s all;
+  transition: 1s all;
+  opacity: 100;
+}
+
 /*# sourceMappingURL=app.css.map */
