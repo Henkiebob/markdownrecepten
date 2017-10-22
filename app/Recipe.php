@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
     public function image() {
-      return $this->hasOne('App\Image');
+      return $this->hasOne(Image::class);
     }
 
     public function tags(){

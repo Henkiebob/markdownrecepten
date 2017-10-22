@@ -51,6 +51,11 @@ class RecipeController extends Controller
     {
         $description = Markdown::convertToHtml($request->get('description'));
         $recipe = new Recipe;
+
+        $this->validate($request, [
+          'title' => 'required',
+        ]);
+
         $recipe->description = $description;
         $recipe->title = $request->get('title');
         $recipe->status = 0;
@@ -62,6 +67,7 @@ class RecipeController extends Controller
                 array_push($ids, $tag->id);
             }
         }
+
         $recipe->save();
         $recipe->tags()->sync($ids);
 
@@ -89,12 +95,13 @@ class RecipeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Recipe $recipe)
     {
-        //
+        $recipe->load('tags');
+        return $recipe;
     }
 
     /**

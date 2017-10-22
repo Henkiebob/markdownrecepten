@@ -1,23 +1,38 @@
 @extends('layouts/app')
 @section('content')
   <h1>Recepten</h1>
-  <div class="container-fluid">
-    <div class="row">
-        @foreach ($recipes as $recipe)
-          <div class="col-md-3">
-          <div class="thumbnail">
-               <img src="/images/recipes/{{$recipe->image['filename']}}" alt="{{$recipe->title}}">
-               <div class="caption">
-                 <h3>{{$recipe->title}}</h3>
-                 <p>{{strip_tags(substr($recipe->description, 0, 100))}}</p>
-                 <p>
-                    <a href="#" class="btn btn-primary" role="button">Bekijk recept</a>
-                 </p>
-               </div>
-             </div>
-          </div>
-        @endforeach
+
+  <div class="columns">
+    <div class="column">
+      @foreach ($recipes as $recipe)
+      <div class="card recipe">
+        <div class="card-content">
+          <p class="title">
+            {{$recipe->title}}
+          </p>
+          <p class="subtitle">
+            10 minuten
+          </p>
+        </div>
+        <footer class="card-footer">
+          <p class="card-footer-item">
+            <span>
+              <a class="button" href="/recipe/view/1">Bekijk recept</a>
+            </span>
+          </p>
+        </footer>
+        @if ($recipe->tags)
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              @foreach ($recipe->tags as $tag)
+                  <span class="tag is-info">{{$tag->name}}</span>
+              @endforeach
+            </p>
+          </footer>
+        @endif
       </div>
+      @endforeach
     </div>
   </div>
+
 @endsection
