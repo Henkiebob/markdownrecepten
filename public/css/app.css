@@ -9569,4 +9569,8 @@ label.panel-block:hover {
   width: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 /*# sourceMappingURL=app.css.map */

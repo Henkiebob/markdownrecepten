@@ -41,10 +41,13 @@
             //   recipe.style.opacity = '100';
             // }
 
+
             if(recipe.getAttribute('data-title').indexOf(query) > -1){
-              recipe.style.opacity = '100';
+              //recipe.style.opacity = '100';
+              $(recipe).show();
             } else {
-              recipe.style.opacity = '0';
+              $(recipe).hide();
+              //recipe.style.opacity = '0';
             }
         });
 
