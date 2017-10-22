@@ -5,7 +5,7 @@
         @yield('css')
     </head>
     <body>
-        <div class="container is-fluid">
+        <div class="container is-fluid is-fullhd">
 
           <div class="field search">
             <p class="control">

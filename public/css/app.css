@@ -9565,4 +9565,8 @@ label.panel-block:hover {
   opacity: 100;
 }
 
+.columns {
+  width: 100%;
+}
+
 /*# sourceMappingURL=app.css.map */

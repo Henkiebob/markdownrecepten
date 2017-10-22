@@ -1,9 +1,9 @@
 @extends('layouts/app')
 @section('content')
-  <div class="columns">
 
+  <div class="columns is-desktop is-multiline">
       @foreach ($recipes as $recipe)
-      <div class="column is-one-quarter">
+      <div class="column is-3">
         <div class="card recipe" data-title="{{strtolower($recipe->title)}}">
           <div class="card-content">
             <p class="title">
@@ -12,12 +12,15 @@
             <p class="subtitle">
               10 minuten
             </p>
+            <p class="tags">
+              @if ($recipe->tags)
+                @foreach ($recipe->tags as $tag)
+                    <span class="tag is-info">{{$tag->name}}</span>
+                @endforeach
+              @endif
+            </p>
           </div>
-          @if ($recipe->tags)
-            @foreach ($recipe->tags as $tag)
-                <span class="tag is-info">{{$tag->name}}</span>
-            @endforeach
-          @endif
+
         </div>
       </div>
       @endforeach
@@ -37,7 +40,7 @@
             // if (event.keyCode == 8) {
             //   recipe.style.opacity = '100';
             // }
-            
+
             if(recipe.getAttribute('data-title').indexOf(query) > -1){
               recipe.style.opacity = '100';
             } else {
