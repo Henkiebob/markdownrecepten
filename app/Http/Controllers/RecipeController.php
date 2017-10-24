@@ -31,6 +31,27 @@ class RecipeController extends Controller
         );
     }
 
+    public function getRecipes(Request $request)
+    {
+
+      if($request && $request->title) {
+        $recipes = Recipe::where('title', 'like', '%' .$request->title . '%')->get();
+      } else {
+        $recipes = Recipe::all();
+      }
+
+      return (String) view(
+        'recipes.ajax-recipes',
+        [
+          'recipes' => $recipes,
+          'tags'  => Tag::all(),
+        ]
+      );
+
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -49,16 +70,14 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        $description = Markdown::convertToHtml($request->get('description'));
+
+        $description = Markdown::convertToHtml($request->description);
         $recipe = new Recipe;
 
-        $this->validate($request, [
-          'title' => 'required',
-        ]);
-
         $recipe->description = $description;
-        $recipe->title = $request->get('title');
+        $recipe->title = $request->title;
         $recipe->status = 0;
+
         $ids = [];
         $tags = $request['tags'];
         if (!empty($tags)) {
@@ -70,22 +89,6 @@ class RecipeController extends Controller
 
         $recipe->save();
         $recipe->tags()->sync($ids);
-
-        if($request->file('file')) {
-            $image = new Image;
-
-            $this->validate($request, [
-              'file' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
-
-            $input['imagename'] = $request->file('file')->getClientOriginalName();
-            $destinationPath = public_path('/images/recipes/');
-            $request->file('file')->move($destinationPath, $input['imagename']);
-
-            $image->filename = $input['imagename'];
-            $image->recipe_id = $recipe->id;
-            $image->save();
-        }
 
         $request->session()->flash('succes', 'Recept opgeslagen');
 

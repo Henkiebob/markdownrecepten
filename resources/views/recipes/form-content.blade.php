@@ -1,38 +1,42 @@
-<form method="POST" enctype="multipart/form-data">
-  <div class="form-group">
-    <label for="title">Titel:</label>
-    <input type="text" name="title" class="form-control" id="title" value="@if(isset($recipe)) {{$recipe->title}} @endif">
-  </div>
-  <div class="form-group">
-    <label for="description">Recept</label>
-    <textarea class="form-control" rows="3" name="description" id="recipe-content-textarea"></textarea>
-  </div>
 
-  <div class="form-group">
-    <label for="title">Tags:</label>
-    <select id="recipe-tags" name="tags[]" class="form-control" multiple>
-        @foreach($tags as $tag)
-            @if(isset($recipe) && $recipe->tags->contains($tag))
-                <option value="{{ $tag->name }}" selected>{{ $tag->name }}</option>
-            @else
-                <option value="{{ $tag->name }}">{{ $tag->name }}</option>
-            @endif
-        @endforeach
-    </select>
+<div class="section">
+<form method="POST">
+  <div class="field">
+    <label class="label">Titel</label>
+    <div class="control">
+      <input class="input" name="title" type="text" placeholder="Omschrijf wat je gaat koken!" id="title" value="@if(isset($recipe)) {{$recipe->title}} @endif">
+    </div>
   </div>
 
-  <div class="form-group">
-     <label for="file">Foto van eindresultaat</label>
-     <input type="file" id="files" name="file">
-     <p class="help-block">Een enkele foto van het eindresultaat!</p>
-   </div>
+  <div class="field">
+    <label class="label" for="recipe-tags">Tags</label>
+    <div class="control">
+      <select id="recipe-tags" name="tags[]" class="form-control" multiple style="width:100%">
+          @foreach($tags as $tag)
+              @if(isset($recipe) && $recipe->tags->contains($tag))
+                  <option value="{{ $tag->name }}" selected>{{ $tag->name }}</option>
+              @else
+                  <option value="{{ $tag->name }}">{{ $tag->name }}</option>
+              @endif
+          @endforeach
+      </select>
+    </div>
+  </div>
 
-  <button type="submit" class="btn btn-success">Toevoegen</button>
+  <div class="field">
+    <label class="label">Recept</label>
+    <div class="control">
+      <textarea class="textarea" id="recipe-content-textarea" placeholder="Je recept hier" name="description"></textarea>
+    </div>
+  </div>
+
   {{ csrf_field() }}
+
+  <div class="control">
+    <input type="submit" class="button is-success" value="Toevoegen"/>
+  </div>
 </form>
-
-
-
+</section>
 
 @section('script')
     <script src="//cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>

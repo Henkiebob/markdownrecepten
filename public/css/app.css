@@ -9573,4 +9573,8 @@ label.panel-block:hover {
   display: none;
 }
 
+#recipe-tags {
+  width: 100%;
+}
+
 /*# sourceMappingURL=app.css.map */
