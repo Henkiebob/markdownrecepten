@@ -33,10 +33,19 @@ class RecipeController extends Controller
 
     public function getRecipes(Request $request)
     {
-
       if($request && $request->title) {
-        $recipes = Recipe::where('title', 'like', '%' .$request->title . '%')->get();
-      } else {
+        $query = Recipe::query();
+
+        $query->where(function($inner) use ($request) {
+          $inner->where('title', 'like', '%' .$request->title . '%');
+        });
+
+        $query->orWhereHas('tags', function($inner) use ($request) {
+          $inner->where('name', 'like', '%' .$request->title . '%');
+        });
+
+        $recipes = $query->get();
+      }else {
         $recipes = Recipe::all();
       }
 
@@ -47,10 +56,7 @@ class RecipeController extends Controller
           'tags'  => Tag::all(),
         ]
       );
-
     }
-
-
 
     /**
      * Show the form for creating a new resource.

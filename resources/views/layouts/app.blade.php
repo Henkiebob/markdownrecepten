@@ -11,7 +11,7 @@
           @if (Route::getCurrentRoute()->getName() == 'recipes')
             <div class="field search">
               <p class="control">
-                <input class="input is-large" id="recipe_search" type="text" placeholder="Find a recipe">
+                <input class="input is-large" id="recipe_search" type="text" placeholder="Find a recipe by tag or name">
                 <span class="icon is-small is-left">
                 <i class="fa fa-envelope"></i>
                 </span>
